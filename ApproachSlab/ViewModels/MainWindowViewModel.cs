@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using BridgeDeck.Infrastructure;
+using ApproachSlab.Infrastructure;
 
-namespace BridgeDeck.ViewModels
+namespace ApproachSlab.ViewModels
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
@@ -15,7 +15,7 @@ namespace BridgeDeck.ViewModels
         }
 
         #region Заголовок
-        private string _title = "Bridge Deck";
+        private string _title = "Плита сопряжения";
 
         public string Title
         {

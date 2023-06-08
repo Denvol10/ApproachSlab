@@ -3,9 +3,9 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using BridgeDeck.ViewModels;
+using ApproachSlab.ViewModels;
 
-namespace BridgeDeck.Infrastructure
+namespace ApproachSlab.Infrastructure
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]

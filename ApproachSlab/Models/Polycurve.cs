@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
 
-namespace BridgeDeck.Models
+namespace ApproachSlab.Models
 {
     public class PolyCurve
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BridgeDeck.ViewModels.Base
+namespace ApproachSlab.ViewModels.Base
 {
     internal abstract class ViewModel : INotifyPropertyChanged
     {

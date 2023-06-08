@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace BridgeDeck
+namespace ApproachSlab
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

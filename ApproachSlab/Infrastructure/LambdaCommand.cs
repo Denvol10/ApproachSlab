@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BridgeDeck.Infrastructure.Base;
+using ApproachSlab.Infrastructure.Base;
 
-namespace BridgeDeck.Infrastructure
+namespace ApproachSlab.Infrastructure
 {
     internal class LambdaCommand : Command
     {
