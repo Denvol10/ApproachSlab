@@ -38,7 +38,7 @@ namespace ApproachSlab
 
         public void GetPolyCurve()
         {
-            var curves = RevitGeometryUtils.GetCurvesByRectangle(Uiapp, out _roadAxisElemIds);
+            var curves = RevitGeometryUtils.GetCurvesByDirectShapeAndModelLine(Uiapp, out _roadAxisElemIds);
             RoadAxis = new PolyCurve(curves);
         }
         #endregion
@@ -267,29 +267,5 @@ namespace ApproachSlab
         }
         #endregion
 
-        //#region Генератор параметров на поликривой
-        //private List<double> GenerateParameters(double bound1, double bound2)
-        //{
-        //    var parameters = new List<double>
-        //    { bound1 };
-
-        //    double approxStep = UnitUtils.ConvertToInternalUnits(1, UnitTypeId.Meters);
-
-        //    int count = (int)(Math.Abs(bound2 - bound1) / approxStep + 1);
-
-        //    double start = bound1;
-
-        //    double step = (bound2 - bound1) / (count - 1);
-        //    for (int i = 0; i < count - 2; i++)
-        //    {
-        //        parameters.Add(start + step);
-        //        start += step;
-        //    }
-
-        //    parameters.Add(bound2);
-
-        //    return parameters;
-        //}
-        //#endregion
     }
 }

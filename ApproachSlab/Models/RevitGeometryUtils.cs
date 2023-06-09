@@ -19,6 +19,34 @@ namespace ApproachSlab.Models
             return curvesRoadAxis;
         }
 
+        // Получение линий оси трассы на основе не только directshape линий но и линий модели
+        public static List<Curve> GetCurvesByDirectShapeAndModelLine(UIApplication uiapp, out string elementIds)
+        {
+            Selection sel = uiapp.ActiveUIDocument.Selection;
+            var selectedElements = sel.PickObjects(ObjectType.Element,
+                                                   new DirectShapeAndModelLineFilter(),
+                                                   "Select Road Axis or Approach Slab Axis Line");
+            var elements = selectedElements.Select(r => uiapp.ActiveUIDocument.Document.GetElement(r));
+            bool isContainsModelLine = elements.Any(e => e is ModelCurve);
+
+            Options options = new Options();
+            if (isContainsModelLine)
+            {
+                var modelCurvesElems = elements.OfType<ModelCurve>();
+                elementIds = ElementIdToString(modelCurvesElems);
+                var modelCurves = modelCurvesElems.Select(e => e.get_Geometry(options).First()).OfType<Curve>().ToList();
+                return modelCurves;
+            }
+            else
+            {
+                var directShapeELems = elements.OfType<DirectShape>();
+                elementIds = ElementIdToString(directShapeELems);
+                var directshapeCurves = GetCurvesByDirectShapes(directShapeELems);
+                return directshapeCurves;
+            }
+
+        }
+
         // Метод получения списка линий на поверхности дороги
         public static List<Line> GetRoadLines(UIApplication uiapp, out string elementIds)
         {
@@ -44,19 +72,6 @@ namespace ApproachSlab.Models
 
             return lines;
         }
-
-        // Получение линий границ плиты
-        //public static Curve GetBoundCurve(UIApplication uiapp, out string elementIds)
-        //{
-        //    Selection sel = uiapp.ActiveUIDocument.Selection;
-        //    var boundCurvePicked = sel.PickObject(ObjectType.Element, "Выберете линию границы плиты");
-        //    Options options = new Options();
-        //    Element curveElement = uiapp.ActiveUIDocument.Document.GetElement(boundCurvePicked);
-        //    elementIds = "Id" + curveElement.Id.IntegerValue;
-        //    var boundCurve = curveElement.get_Geometry(options).First() as Curve;
-
-        //    return boundCurve;
-        //}
 
         // Получение линии из списка, которая пересекается с плоскостью
         public static Line GetIntersectCurve(IEnumerable<Line> lines, Plane plane)
@@ -158,8 +173,5 @@ namespace ApproachSlab.Models
 
             return resultString;
         }
-
-
-
     }
 }
