@@ -118,7 +118,7 @@ namespace ApproachSlab.ViewModels
         #endregion
 
         #region Угол поворота профиля
-        private double _rotateAngle;
+        private double _rotateAngle = 90.00;
         public double RotateAngle
         {
             get => _rotateAngle;
