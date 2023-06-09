@@ -140,7 +140,8 @@ namespace ApproachSlab
         #endregion
 
         #region Построение экземпляров семейства адаптивного сечения
-        public void CreateAdaptivePointsFamilyInstanse(string familyAndSymbolName, int countShapeHandlePoints, bool rotateFamilyInstanse)
+        public void CreateAdaptivePointsFamilyInstanse(string familyAndSymbolName, int countShapeHandlePoints,
+                                                       bool rotateFamilyInstanse, bool isVertical)
         {
             Curve curveInPolyCurve1 = null;
             double boundParameter1 = 0;
@@ -198,10 +199,16 @@ namespace ApproachSlab
 
                 XYZ upVector = orthVector.CrossProduct(v1).Normalize() * distanceBetweenPoints;
                 bool isPlaneZNegative = upVector.Z < 0;
+
                 if (isPlaneZNegative)
                 {
                     upVector = upVector.Negate();
                     orthVector = orthVector.Negate();
+                }
+
+                if (isVertical)
+                {
+                    upVector = XYZ.BasisZ * distanceBetweenPoints;
                 }
 
                 if (rotateFamilyInstanse)
