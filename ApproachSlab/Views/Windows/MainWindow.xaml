@@ -108,31 +108,17 @@
                 </UniformGrid>
             </UniformGrid>
         </GroupBox>
-        <GroupBox Header="Границы плиты"
+        <GroupBox Header="Положение профилей"
                   Style="{StaticResource BorderGroupStyle}">
-            <UniformGrid Rows="2">
-                <UniformGrid Columns="2">
-                    <UniformGrid Rows="2">
-                        <TextBlock Text="Линия границы плиты 1"
-                                   Style="{StaticResource TextAboveButton}"
-                                   VerticalAlignment="Bottom" />
-                        <Button Style="{StaticResource SelectButton}"
-                                Command="{Binding GetBoundCurve1}" />
-                    </UniformGrid>
-                    <TextBox Text="{Binding BoundCurveId1}"
-                             Style="{StaticResource SelectedItemsBox}" />
+            <UniformGrid Columns="2">
+                <UniformGrid Rows="2">
+                    <TextBlock Text="Линии профилей"
+                               Style="{StaticResource TextAboveButton}" />
+                    <Button Style="{StaticResource SelectButton}"
+                            Command="{Binding GetProfileLinesCommand}" />
                 </UniformGrid>
-                <UniformGrid Columns="2"
-                             Margin="0,5">
-                    <UniformGrid Rows="2">
-                        <TextBlock Text="Линия границы плиты 2"
-                                   Style="{StaticResource TextAboveButton}" />
-                        <Button Style="{StaticResource SelectButton}"
-                                Command="{Binding GetBoundCurve2}" />
-                    </UniformGrid>
-                    <TextBox Text="{Binding BoundCurveId2}"
-                             Style="{StaticResource SelectedItemsBox}" />
-                </UniformGrid>
+                <TextBox Text="{Binding ProfileLineIds}"
+                         Style="{StaticResource SelectedItemsBox}" />
             </UniformGrid>
         </GroupBox>
         <GroupBox Header="Профиль"

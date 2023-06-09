@@ -33,18 +33,30 @@ namespace ApproachSlab.Models
             return linesRoadSurface;
         }
 
-        // Получение линий границ плиты
-        public static Curve GetBoundCurve(UIApplication uiapp, out string elementIds)
+        public static List<Line> GetCurvesByLines(UIApplication uiapp, out string elementIds)
         {
             Selection sel = uiapp.ActiveUIDocument.Selection;
-            var boundCurvePicked = sel.PickObject(ObjectType.Element, "Выберете линию границы плиты");
+            var curvesPicked = sel.PickObjects(ObjectType.Element, new ModelLineClassFilter(), "Select lines for placement profiles");
             Options options = new Options();
-            Element curveElement = uiapp.ActiveUIDocument.Document.GetElement(boundCurvePicked);
-            elementIds = "Id" + curveElement.Id.IntegerValue;
-            var boundCurve = curveElement.get_Geometry(options).First() as Curve;
+            var elements = curvesPicked.Select(r => uiapp.ActiveUIDocument.Document.GetElement(r));
+            elementIds = ElementIdToString(elements);
+            var lines = elements.Select(e => e.get_Geometry(options).First()).OfType<Line>().ToList();
 
-            return boundCurve;
+            return lines;
         }
+
+        // Получение линий границ плиты
+        //public static Curve GetBoundCurve(UIApplication uiapp, out string elementIds)
+        //{
+        //    Selection sel = uiapp.ActiveUIDocument.Selection;
+        //    var boundCurvePicked = sel.PickObject(ObjectType.Element, "Выберете линию границы плиты");
+        //    Options options = new Options();
+        //    Element curveElement = uiapp.ActiveUIDocument.Document.GetElement(boundCurvePicked);
+        //    elementIds = "Id" + curveElement.Id.IntegerValue;
+        //    var boundCurve = curveElement.get_Geometry(options).First() as Curve;
+
+        //    return boundCurve;
+        //}
 
         // Получение линии из списка, которая пересекается с плоскостью
         public static Line GetIntersectCurve(IEnumerable<Line> lines, Plane plane)

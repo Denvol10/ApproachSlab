@@ -54,21 +54,12 @@ namespace ApproachSlab.ViewModels
         }
         #endregion
 
-        #region Элемент границы 1
-        private string _boundCurveId1;
-        public string BoundCurveId1
+        #region Id линий для построения профилей 
+        private string _profileLineIds;
+        public string ProfileLineIds
         {
-            get => _boundCurveId1;
-            set => Set(ref _boundCurveId1, value);
-        }
-        #endregion
-
-        #region Элемент границы 2
-        private string _boundCurveId2;
-        public string BoundCurveId2
-        {
-            get => _boundCurveId2;
-            set => Set(ref _boundCurveId2, value);
+            get => _profileLineIds;
+            set => Set(ref _profileLineIds, value);
         }
         #endregion
 
@@ -170,35 +161,18 @@ namespace ApproachSlab.ViewModels
         }
         #endregion
 
-        #region Получение границы плиты 1
-        public ICommand GetBoundCurve1 { get; }
+        #region Получение линий для размещения профилей
+        public ICommand GetProfileLinesCommand { get; }
 
-        private void OnGetBoundCurve1CommandExecuted(object parameter)
+        private void OnGetProfileLinesCommandExecuted(object parameter)
         {
             RevitCommand.mainView.Hide();
-            RevitModel.GetBoundCurve1();
-            BoundCurveId1 = RevitModel.BoundCurveId1;
+            RevitModel.GetProfileLines();
+            ProfileLineIds = RevitModel.ProfileLineIds;
             RevitCommand.mainView.ShowDialog();
         }
 
-        public bool CanGetBoundCurve1CommandExecute(object parameter)
-        {
-            return true;
-        }
-        #endregion
-
-        #region Получение границы плиты 2
-        public ICommand GetBoundCurve2 { get; }
-
-        private void OnGetBoundCurve2CommandExecuted(object parameter)
-        {
-            RevitCommand.mainView.Hide();
-            RevitModel.GetBoundCurve2();
-            BoundCurveId2 = RevitModel.BoundCurveId2;
-            RevitCommand.mainView.ShowDialog();
-        }
-
-        private bool CanGetBoundCurve2CommandExecute(object parameter)
+        private bool CanGetProfileLinesCommandExecute(object parameter)
         {
             return true;
         }
@@ -250,9 +224,7 @@ namespace ApproachSlab.ViewModels
 
             GetRoadLines2 = new LambdaCommand(OnGetRoadLines2CommandExecuted, CanGetRoadLines2CommandExecute);
 
-            GetBoundCurve1 = new LambdaCommand(OnGetBoundCurve1CommandExecuted, CanGetBoundCurve1CommandExecute);
-
-            GetBoundCurve2 = new LambdaCommand(OnGetBoundCurve2CommandExecuted, CanGetBoundCurve2CommandExecute);
+            GetProfileLinesCommand = new LambdaCommand(OnGetProfileLinesCommandExecuted, CanGetProfileLinesCommandExecute);
 
             CreateAdaptiveFamilyInstances = new LambdaCommand(OnCreateAdaptiveFamilyInstancesCommandExecuted,
                                                               CanCreateAdaptiveFamilyInstancesCommandExecute);

@@ -75,35 +75,19 @@ namespace ApproachSlab
         }
         #endregion
 
-        #region Граница плиты 1
-        public Curve BoundCurve1 { get; set; }
+        #region Линии для размещения профилей
+        public List<Line> ProfileLines { get; set; }
 
-        private string _boundCurveId1;
-        public string BoundCurveId1
+        private string _profileLineIds;
+        public string ProfileLineIds
         {
-            get => _boundCurveId1;
-            set => _boundCurveId1 = value;
+            get => _profileLineIds;
+            set => _profileLineIds = value;
         }
 
-        public void GetBoundCurve1()
+        public void GetProfileLines()
         {
-            BoundCurve1 = RevitGeometryUtils.GetBoundCurve(Uiapp, out _boundCurveId1);
-        }
-        #endregion
-
-        #region Граница плиты 2
-        public Curve BoundCurve2 { get; set; }
-
-        private string _boundCurveId2;
-        public string BoundCurveId2
-        {
-            get => _boundCurveId2;
-            set => _boundCurveId2 = value;
-        }
-
-        public void GetBoundCurve2()
-        {
-            BoundCurve2 = RevitGeometryUtils.GetBoundCurve(Uiapp, out _boundCurveId2);
+            ProfileLines = RevitGeometryUtils.GetCurvesByLines(Uiapp, out _profileLineIds);
         }
         #endregion
 
@@ -143,17 +127,15 @@ namespace ApproachSlab
         public void CreateAdaptivePointsFamilyInstanse(string familyAndSymbolName, int countShapeHandlePoints,
                                                        bool rotateFamilyInstanse, bool isVertical)
         {
-            Curve curveInPolyCurve1 = null;
-            double boundParameter1 = 0;
-            RoadAxis.Intersect(BoundCurve1, out curveInPolyCurve1, out boundParameter1);
-
-            Curve curveInPolyCurve2 = null;
-            double boundParameter2 = 0;
-            RoadAxis.Intersect(BoundCurve2, out curveInPolyCurve2, out boundParameter2);
-
             FamilySymbol fSymbol = GetFamilySymbolByName(familyAndSymbolName);
 
-            var pointParameters = GenerateParameters(boundParameter1, boundParameter2);
+            var pointParameters = new List<double>();
+            foreach(var line in ProfileLines)
+            {
+                double profileParameter;
+                RoadAxis.Intersect(line, out _, out profileParameter);
+                pointParameters.Add(profileParameter);
+            }
 
             var creationDataList = new List<Autodesk.Revit.Creation.FamilyInstanceCreationData>();
 
@@ -285,29 +267,29 @@ namespace ApproachSlab
         }
         #endregion
 
-        #region Генератор параметров на поликривой
-        private List<double> GenerateParameters(double bound1, double bound2)
-        {
-            var parameters = new List<double>
-            { bound1 };
+        //#region Генератор параметров на поликривой
+        //private List<double> GenerateParameters(double bound1, double bound2)
+        //{
+        //    var parameters = new List<double>
+        //    { bound1 };
 
-            double approxStep = UnitUtils.ConvertToInternalUnits(1, UnitTypeId.Meters);
+        //    double approxStep = UnitUtils.ConvertToInternalUnits(1, UnitTypeId.Meters);
 
-            int count = (int)(Math.Abs(bound2 - bound1) / approxStep + 1);
+        //    int count = (int)(Math.Abs(bound2 - bound1) / approxStep + 1);
 
-            double start = bound1;
+        //    double start = bound1;
 
-            double step = (bound2 - bound1) / (count - 1);
-            for (int i = 0; i < count - 2; i++)
-            {
-                parameters.Add(start + step);
-                start += step;
-            }
+        //    double step = (bound2 - bound1) / (count - 1);
+        //    for (int i = 0; i < count - 2; i++)
+        //    {
+        //        parameters.Add(start + step);
+        //        start += step;
+        //    }
 
-            parameters.Add(bound2);
+        //    parameters.Add(bound2);
 
-            return parameters;
-        }
-        #endregion
+        //    return parameters;
+        //}
+        //#endregion
     }
 }
