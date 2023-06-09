@@ -108,6 +108,24 @@ namespace ApproachSlab.ViewModels
         }
         #endregion
 
+        #region Профиль повернут на угол
+        private bool _isRotateByAngel = false;
+        public bool IsRotateByAngel
+        {
+            get => _isRotateByAngel;
+            set => Set(ref _isRotateByAngel, value);
+        }
+        #endregion
+
+        #region Угол поворота профиля
+        private double _rotateAngle;
+        public double RotateAngle
+        {
+            get => _rotateAngle;
+            set => Set(ref _rotateAngle, value);
+        }
+        #endregion
+
         #region Команды
 
         #region Получение оси трассы
@@ -184,7 +202,12 @@ namespace ApproachSlab.ViewModels
         private void OnCreateAdaptiveFamilyInstancesCommandExecuted(object parameter)
         {
             CountShapeHandlePoints = RevitModel.GetCountShapeHandlePoints(FamilySymbolName);
-            RevitModel.CreateAdaptivePointsFamilyInstanse(FamilySymbolName, CountShapeHandlePoints, IsRotate, IsVertical);
+            RevitModel.CreateAdaptivePointsFamilyInstanse(FamilySymbolName,
+                                                          CountShapeHandlePoints,
+                                                          IsRotate,
+                                                          IsVertical,
+                                                          IsRotateByAngel,
+                                                          RotateAngle);
             RevitCommand.mainView.Close();
         }
 

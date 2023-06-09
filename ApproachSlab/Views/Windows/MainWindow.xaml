@@ -152,6 +152,27 @@
                                   IsChecked="{Binding IsVertical}" />
                     </UniformGrid>
                 </UniformGrid>
+                <UniformGrid Grid.Row="1"
+                             Columns="2"
+                             Margin="0,10">
+                    <CheckBox Content="Повернуть профиль"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="center"
+                              IsChecked="{Binding IsRotateByAngel}" />
+                    <DockPanel>
+                        <TextBlock Text="Угол поворота, град."
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="2,0,0,0" />
+                        <TextBox Width="38"
+                                 Height="20"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Margin="5,0,0,0"
+                                 Text="{Binding RotateAngle, UpdateSourceTrigger=PropertyChanged}"
+                                 TextAlignment="Center" />
+                    </DockPanel>
+                </UniformGrid>
                 <UniformGrid Grid.Row="2"
                              Columns="2"
                              Margin="0,12,0,5">

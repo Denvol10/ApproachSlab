@@ -124,8 +124,12 @@ namespace ApproachSlab
         #endregion
 
         #region Построение экземпляров семейства адаптивного сечения
-        public void CreateAdaptivePointsFamilyInstanse(string familyAndSymbolName, int countShapeHandlePoints,
-                                                       bool rotateFamilyInstanse, bool isVertical)
+        public void CreateAdaptivePointsFamilyInstanse(string familyAndSymbolName,
+                                                       int countShapeHandlePoints,
+                                                       bool rotateFamilyInstanse,
+                                                       bool isVertical,
+                                                       bool isRotateByAngle,
+                                                       double rotateAngle)
         {
             FamilySymbol fSymbol = GetFamilySymbolByName(familyAndSymbolName);
 
@@ -198,7 +202,20 @@ namespace ApproachSlab
                     orthVector = orthVector.Negate();
                 }
 
-                XYZ secondPoint = firstPoint + orthVector;
+                XYZ secondPoint;
+
+                if(isRotateByAngle)
+                {
+                    var rotationAngle = UnitUtils.ConvertToInternalUnits(90 - rotateAngle, UnitTypeId.Degrees);
+                    Transform transformRotation = Transform.CreateRotation(upVector, rotationAngle);
+                    XYZ rotatedVectorPoint2 = transformRotation.OfPoint(orthVector);
+                    secondPoint = firstPoint + rotatedVectorPoint2;
+                }
+                else
+                {
+                    secondPoint = firstPoint + orthVector;
+                }
+
                 familyInstancePoints.Add(secondPoint);
 
                 XYZ thirdPoint = firstPoint + upVector;
