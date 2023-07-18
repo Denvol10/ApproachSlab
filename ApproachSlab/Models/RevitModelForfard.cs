@@ -119,6 +119,14 @@ namespace ApproachSlab
         }
         #endregion
 
+        #region Получение линии на поверхности 2 из Settings
+        public void GetRoadLines2BySettings(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+            RoadLines2 = RevitGeometryUtils.GetCurvesById(Doc, elemIds).OfType<Line>().ToList();
+        }
+        #endregion
+
         #region Линии для размещения профилей
         public List<Line> ProfileLines { get; set; }
 
