@@ -43,6 +43,42 @@ namespace ApproachSlab
         }
         #endregion
 
+        #region Проверка на то существуют линии оси в модели
+        public bool IsAxisLinesExistInModel(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+
+            return RevitGeometryUtils.IsAxisElemsExistInModel(Doc, elemIds);
+        }
+        #endregion
+
+        #region Проверка на то существуют линии поверхности в модели
+        public bool IsLinesExistInModel(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+
+            return RevitGeometryUtils.IsElemsExistInModel(Doc, elemIds, typeof(DirectShape));
+        }
+        #endregion
+
+        #region Проверка на то существует линия границы плиты
+        public bool IsBoundLineExistInModel(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+
+            return RevitGeometryUtils.IsElemsExistInModel(Doc, elemIds, typeof(ModelLine));
+        }
+        #endregion
+
+        #region Получение оси трассы из Settings
+        public void GetAxisBySettings(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+            var lines = RevitGeometryUtils.GetDirectShapeAndModelLinesCurvesById(Doc, elemIds);
+            RoadAxis = new PolyCurve(lines);
+        }
+        #endregion
+
         #region Линия на поверхности 1
         public List<Line> RoadLines1 { get; set; }
 

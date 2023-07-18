@@ -209,6 +209,7 @@ namespace ApproachSlab.ViewModels
                                                           IsVertical,
                                                           IsRotateByAngel,
                                                           RotateAngle);
+            SaveSettings();
             RevitCommand.mainView.Close();
         }
 
@@ -223,6 +224,7 @@ namespace ApproachSlab.ViewModels
 
         private void OnCloseWindowCommandExecuted(object parameter)
         {
+            SaveSettings();
             RevitCommand.mainView.Close();
         }
 
@@ -234,12 +236,30 @@ namespace ApproachSlab.ViewModels
 
         #endregion
 
+        private void SaveSettings()
+        {
+            Properties.Settings.Default["RoadAxisElemIds"] = RoadAxisElemIds;
+            Properties.Settings.Default.Save();
+        }
+
         #region Конструктор класса MainWindowViewModel
         public MainWindowViewModel(RevitModelForfard revitModel)
         {
             RevitModel = revitModel;
 
             GenericModelFamilySymbols = RevitModel.GetFamilySymbolNames();
+
+            #region Инициализация значения элементам оси из Settings
+            if (!(Properties.Settings.Default["RoadAxisElemIds"] is null))
+            {
+                string axisElementIdInSettings = Properties.Settings.Default["RoadAxisElemIds"].ToString();
+                if(RevitModel.IsAxisLinesExistInModel(axisElementIdInSettings) && !string.IsNullOrEmpty(axisElementIdInSettings))
+                {
+                    RoadAxisElemIds = axisElementIdInSettings;
+                    RevitModel.GetAxisBySettings(axisElementIdInSettings);
+                }
+            }
+            #endregion
 
             #region Команды
             GetRoadAxis = new LambdaCommand(OnGetRoadAxisCommandExecuted, CanGetRoadAxisCommandExecute);
