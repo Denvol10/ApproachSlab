@@ -58,5 +58,17 @@ namespace ApproachSlab.Properties {
                 this["RoadLineElemIds2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ProfileLineIds {
+            get {
+                return ((string)(this["ProfileLineIds"]));
+            }
+            set {
+                this["ProfileLineIds"] = value;
+            }
+        }
     }
 }

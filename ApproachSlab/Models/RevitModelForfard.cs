@@ -61,8 +61,8 @@ namespace ApproachSlab
         }
         #endregion
 
-        #region Проверка на то существует линия границы плиты
-        public bool IsBoundLineExistInModel(string elemIdsInSettings)
+        #region Проверка на то существуют линии для построения профилей
+        public bool IsProfileLinesExistInModel(string elemIdsInSettings)
         {
             var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
 
@@ -140,6 +140,14 @@ namespace ApproachSlab
         public void GetProfileLines()
         {
             ProfileLines = RevitGeometryUtils.GetCurvesByLines(Uiapp, out _profileLineIds);
+        }
+        #endregion
+
+        #region Получение линий профилей из Settings
+        public void GetProfileLinesBySettings(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+            ProfileLines = RevitGeometryUtils.GetProfileLinesById(Doc, elemIds);
         }
         #endregion
 

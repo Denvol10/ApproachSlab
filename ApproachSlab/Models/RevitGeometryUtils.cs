@@ -240,6 +240,23 @@ namespace ApproachSlab.Models
             return line;
         }
 
+        // Получение линий для построения профилей по их id
+        public static List<Line> GetProfileLinesById(Document doc, IEnumerable<int> ids)
+        {
+            var elementsInSettings = new List<Element>();
+            foreach (var id in ids)
+            {
+                ElementId elemId = new ElementId(id);
+                Element elem = doc.GetElement(elemId);
+                elementsInSettings.Add(elem);
+            }
+
+            Options options = new Options();
+            var lines = elementsInSettings.Select(e => e.get_Geometry(options).First()).OfType<Line>().ToList();
+
+            return lines;
+        }
+
         // Получение линий на основе элементов DirectShape
         private static List<Curve> GetCurvesByDirectShapes(IEnumerable<DirectShape> directShapes)
         {

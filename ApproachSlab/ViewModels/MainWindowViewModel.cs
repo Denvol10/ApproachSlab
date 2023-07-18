@@ -241,6 +241,7 @@ namespace ApproachSlab.ViewModels
             Properties.Settings.Default["RoadAxisElemIds"] = RoadAxisElemIds;
             Properties.Settings.Default["RoadLineElemIds1"] = RoadLineElemIds1;
             Properties.Settings.Default["RoadLineElemIds2"] = RoadLineElemIds2;
+            Properties.Settings.Default["ProfileLineIds"] = ProfileLineIds;
             Properties.Settings.Default.Save();
         }
 
@@ -283,6 +284,18 @@ namespace ApproachSlab.ViewModels
                 {
                     RoadLineElemIds2 = line2ElementIdInSettings;
                     RevitModel.GetRoadLines2BySettings(line2ElementIdInSettings);
+                }
+            }
+            #endregion
+
+            #region Инициализация значения элементам линий профилей
+            if (!(Properties.Settings.Default["ProfileLineIds"] is null))
+            {
+                string profileLinesElementIdSettings = Properties.Settings.Default["ProfileLineIds"].ToString();
+                if(RevitModel.IsProfileLinesExistInModel(profileLinesElementIdSettings) && !string.IsNullOrEmpty(profileLinesElementIdSettings))
+                {
+                    ProfileLineIds = profileLinesElementIdSettings;
+                    RevitModel.GetProfileLinesBySettings(profileLinesElementIdSettings);
                 }
             }
             #endregion
