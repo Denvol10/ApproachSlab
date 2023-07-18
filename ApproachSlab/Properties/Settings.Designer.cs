@@ -70,5 +70,17 @@ namespace ApproachSlab.Properties {
                 this["ProfileLineIds"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FamilySymbolIndex {
+            get {
+                return ((int)(this["FamilySymbolIndex"]));
+            }
+            set {
+                this["FamilySymbolIndex"] = value;
+            }
+        }
     }
 }

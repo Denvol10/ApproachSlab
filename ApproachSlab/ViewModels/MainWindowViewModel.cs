@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using ApproachSlab.Infrastructure;
 using ApproachSlab.Models;
@@ -14,6 +15,8 @@ namespace ApproachSlab.ViewModels
             get => _revitModel;
             set => _revitModel = value;
         }
+
+        private int _familySymbolIndex = (int)Properties.Settings.Default["FamilySymbolIndex"];
 
         #region Заголовок
         private string _title = "Плита сопряжения";
@@ -242,6 +245,7 @@ namespace ApproachSlab.ViewModels
             Properties.Settings.Default["RoadLineElemIds1"] = RoadLineElemIds1;
             Properties.Settings.Default["RoadLineElemIds2"] = RoadLineElemIds2;
             Properties.Settings.Default["ProfileLineIds"] = ProfileLineIds;
+            Properties.Settings.Default["FamilySymbolIndex"] = GenericModelFamilySymbols.IndexOf(FamilySymbolName);
             Properties.Settings.Default.Save();
         }
 
@@ -297,6 +301,13 @@ namespace ApproachSlab.ViewModels
                     ProfileLineIds = profileLinesElementIdSettings;
                     RevitModel.GetProfileLinesBySettings(profileLinesElementIdSettings);
                 }
+            }
+            #endregion
+
+            #region Инициализация значения типоразмера семейства
+            if (_familySymbolIndex >= 0 && _familySymbolIndex <= GenericModelFamilySymbols.Count - 1)
+            {
+                FamilySymbolName = GenericModelFamilySymbols.ElementAt(_familySymbolIndex);
             }
             #endregion
 
