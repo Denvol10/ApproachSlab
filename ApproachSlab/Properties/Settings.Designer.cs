@@ -118,5 +118,17 @@ namespace ApproachSlab.Properties {
                 this["IsRotateByAngel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public double RotateAngle {
+            get {
+                return ((double)(this["RotateAngle"]));
+            }
+            set {
+                this["RotateAngle"] = value;
+            }
+        }
     }
 }

@@ -122,7 +122,7 @@ namespace ApproachSlab.ViewModels
         #endregion
 
         #region Угол поворота профиля
-        private double _rotateAngle = 90.00;
+        private double _rotateAngle = (double)Properties.Settings.Default["RotateAngle"];
         public double RotateAngle
         {
             get => _rotateAngle;
@@ -249,6 +249,7 @@ namespace ApproachSlab.ViewModels
             Properties.Settings.Default["IsRotate"] = IsRotate;
             Properties.Settings.Default["IsVertical"] = IsVertical;
             Properties.Settings.Default["IsRotateByAngel"] = IsRotateByAngel;
+            Properties.Settings.Default["RotateAngle"] = RotateAngle;
             Properties.Settings.Default.Save();
         }
 
