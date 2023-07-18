@@ -82,5 +82,17 @@ namespace ApproachSlab.Properties {
                 this["FamilySymbolIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsRotate {
+            get {
+                return ((bool)(this["IsRotate"]));
+            }
+            set {
+                this["IsRotate"] = value;
+            }
+        }
     }
 }

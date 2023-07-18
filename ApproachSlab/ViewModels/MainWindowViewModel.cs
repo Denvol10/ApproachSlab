@@ -95,7 +95,7 @@ namespace ApproachSlab.ViewModels
         #endregion
 
         #region Повернуть профиль
-        private bool _isRotate = false;
+        private bool _isRotate = (bool)Properties.Settings.Default["IsRotate"];
         public bool IsRotate
         {
             get => _isRotate;
@@ -246,6 +246,7 @@ namespace ApproachSlab.ViewModels
             Properties.Settings.Default["RoadLineElemIds2"] = RoadLineElemIds2;
             Properties.Settings.Default["ProfileLineIds"] = ProfileLineIds;
             Properties.Settings.Default["FamilySymbolIndex"] = GenericModelFamilySymbols.IndexOf(FamilySymbolName);
+            Properties.Settings.Default["IsRotate"] = IsRotate;
             Properties.Settings.Default.Save();
         }
 
