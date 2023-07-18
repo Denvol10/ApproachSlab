@@ -106,5 +106,17 @@ namespace ApproachSlab.Properties {
                 this["IsVertical"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsRotateByAngel {
+            get {
+                return ((bool)(this["IsRotateByAngel"]));
+            }
+            set {
+                this["IsRotateByAngel"] = value;
+            }
+        }
     }
 }

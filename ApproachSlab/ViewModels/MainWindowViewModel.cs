@@ -113,7 +113,7 @@ namespace ApproachSlab.ViewModels
         #endregion
 
         #region Профиль повернут на угол
-        private bool _isRotateByAngel = false;
+        private bool _isRotateByAngel = (bool)Properties.Settings.Default["IsRotateByAngel"];
         public bool IsRotateByAngel
         {
             get => _isRotateByAngel;
@@ -248,6 +248,7 @@ namespace ApproachSlab.ViewModels
             Properties.Settings.Default["FamilySymbolIndex"] = GenericModelFamilySymbols.IndexOf(FamilySymbolName);
             Properties.Settings.Default["IsRotate"] = IsRotate;
             Properties.Settings.Default["IsVertical"] = IsVertical;
+            Properties.Settings.Default["IsRotateByAngel"] = IsRotateByAngel;
             Properties.Settings.Default.Save();
         }
 
